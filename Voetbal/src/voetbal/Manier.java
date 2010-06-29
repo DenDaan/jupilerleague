@@ -1,5 +1,5 @@
 package voetbal;
 
-public class Manier {
+public Enum Manier {
 
 }
