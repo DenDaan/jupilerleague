@@ -9,7 +9,11 @@ public class Doelpunt {
 	
 	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Manier manier){
 		this.spelerPunt=spelerPunt;
+		spelerPunt.addDoelpunt();
+		
 		this.spelerAssist=spelerAssist;
+		spelerAssist.addDoelpunt();
+		
 		this.minuut=minuut;
 		this.manier=manier;
 		
