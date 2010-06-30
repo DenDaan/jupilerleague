@@ -1,5 +1,5 @@
 package voetbal;
 
-public Enum Manier {
+public enum Manier {
 KOP,OWNGOAL,VOLLEY,VRIJETRAP,PENALTY,ONGELDIG
 }

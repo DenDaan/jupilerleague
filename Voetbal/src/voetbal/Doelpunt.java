@@ -3,19 +3,30 @@ package voetbal;
 public class Doelpunt {
 
 	private int minuut;
-	Manier manier;
-	Speler spelerPunt;
-	Speler spelerAssist;
+	private Manier manier;
+	private Speler spelerPunt;
+	private Speler spelerAssist;
 	
 	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Manier manier){
-		this.spelerPunt=spelerPunt;
-		spelerPunt.addDoelpunt();
-		
+		this.spelerPunt=spelerPunt;		
 		this.spelerAssist=spelerAssist;
-		spelerAssist.addDoelpunt();
-		
 		this.minuut=minuut;
 		this.manier=manier;
-		
+	}
+	
+	public int getMinuut(){
+		return minuut;
+	}
+	
+	public Manier getManier(){
+		return manier;
+	}
+	
+	public Speler getSpelerPunt(){
+		return spelerPunt;
+	}
+	
+	public Speler getSpelerAssist(){
+		return spelerAssist;
 	}
 }

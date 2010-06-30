@@ -1,5 +1,7 @@
 package voetbal;
 
+import java.util.Date;
+
 public class Speler {
 	
 	private String voornaam;
@@ -11,7 +13,11 @@ public class Speler {
 	private Doelpunt[] doelpunten;
 	private Assist[] assisten;
 	
+	public Kaart[] kaarten;
+	public boolean geschorst = false;
+	
 	public void addAssist(Assist assist){
 		//Todo
 	}
+	
 }

@@ -1,4 +1,4 @@
-
+package voetbal;
 public class Assist {
 
 	private int minuut;
@@ -8,4 +8,4 @@ public class Assist {
 		assister=speler;
 		this.minuut=minuut;
 	}
-	)
+}

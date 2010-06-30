@@ -1,19 +1,20 @@
+package voetbal;
 
 public class DoelpuntManager {
 
-	private static final instance = new DoelpuntManager();
+	private static final DoelpuntManager instance = new DoelpuntManager();
 	
-	public static void getInstance(){
+	public static DoelpuntManager getInstance(){
 		return instance;
 	}
 	
 	private DoelpuntManager(){}
 	
-	public static void addAssist(Match match, Speler speler, Minuut minuut){
+	public static void addAssist(Match match, Speler speler, int minuut){
 		//TODO
 	}
 	
-	public static void addDoelpunt(Match match, Speler scorer, Speler assister, Minuut minuut){
+	public static void addDoelpunt(Match match, Speler scorer, Speler assister, int minuut){
 		//TODO
 		addAssist(match,assister,minuut);
 	}
