@@ -33,6 +33,11 @@ public class Speler {
 		return familienaam + " " + voornaam;
 	}
 	
+	public String getInitNaam(){
+		//TODO: initialen + achternaam
+		return voornaam + " " + familienaam;
+	}
+	
 	public String getNationaliteit(){
 		return nationaliteit;
 	}
@@ -46,9 +51,15 @@ public class Speler {
 		ploegen.add(ploeg);
 	}
 	
-	public String getInitNaam(){
-		//TODO: initialen + achternaam
-		return voornaam + " " + familienaam;
+	public void unemployed(){
+		ploegen.add(null);
+	}
+	
+	public List<Ploeg> getPloegen(){
+		return ploegen;
+	}
+	public int[] periodeBijPloeg(Ploeg ploeg){
+		
 	}
 	
 	public void addAssist(Assist assist){
