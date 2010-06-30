@@ -10,4 +10,16 @@ public class Assist {
 		this.minuut=minuut;
 		this.wedstrijd=wedstrijd;
 	}
+	
+	public int getMinuut(){
+		return minuut;
+	}
+	
+	public Speler getSpeler(){
+		return assister;
+	}
+	
+	public Wedstrijd getWedstrijd(){
+		return wedstrijd;
+	}
 }
