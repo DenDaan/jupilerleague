@@ -59,7 +59,7 @@ public class Speler {
 		return ploegen;
 	}
 	public int[] periodeBijPloeg(Ploeg ploeg){
-		
+		//TODO
 	}
 	
 	public void addAssist(Assist assist){
