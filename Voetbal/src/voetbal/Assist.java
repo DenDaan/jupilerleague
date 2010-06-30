@@ -3,11 +3,11 @@ public class Assist {
 
 	private int minuut;
 	private Speler assister;
-	private Match match;
+	private Wedstrijd wedstrijd;
 	
-	public Assist(Match match, int minuut, Speler speler){
+	public Assist(Wedstrijd wedstrijd, int minuut, Speler speler){
 		assister=speler;
 		this.minuut=minuut;
-		this.match=match;
+		this.wedstrijd=wedstrijd;
 	}
 }
