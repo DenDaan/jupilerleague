@@ -11,7 +11,7 @@ public class DoelpuntManager {
 	private DoelpuntManager(){}
 	
 	public static void addAssist(Match match, Speler speler, int minuut){
-		//TODO
+		speler.addAssist(new Assist(match,minuut,speler));
 	}
 	
 	public static void addDoelpunt(Match match, Speler scorer, Speler assister, int minuut){

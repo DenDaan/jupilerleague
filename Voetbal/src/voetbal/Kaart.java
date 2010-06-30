@@ -1,5 +1,6 @@
 package voetbal;
 
-public class Kaart {
+public abstract class Kaart {
 
+	public Kaart(){};
 }
