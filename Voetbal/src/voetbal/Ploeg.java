@@ -42,9 +42,17 @@ public class Ploeg {
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
+	
+	public void contracteer(Speler speler){
+		//TODO: speler aannemen en ontslaan van ploeg of uit unemployed ploeg halen
+	}
+	
+	public void ontsla(Speler speler){
+		//TODO: speler ontslaan en in unemployed ploeg steken
+	}
 
 	public void transfer(Speler speler, Ploeg ploeg) {
-		// TODO
+		// TODO: transfer naar ploeg
 	}
 	
 	@Override
