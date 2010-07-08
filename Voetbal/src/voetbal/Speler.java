@@ -21,7 +21,7 @@ public class Speler {
 	private String familienaam;
 	private ArrayList<String> nationaliteiten;
 	private Datum geboortejaar;
-	private Positie positie;
+	private ArrayList<Positie> posities;
 	private Voet goedeVoet;
 
 	// TODO: keyset met ploeg en begin en einde periode
@@ -76,12 +76,12 @@ public class Speler {
 		this.geschorst = geschorst;
 	}
 
-	public Positie getPositie() {
-		return positie;
+	public ArrayList<Positie> getPosities() {
+		return posities;
 	}
 	
 	public void addPositie(Positie positie){
-		//TODO: positie toevoegen
+		posities.add(positie);
 	}
 
 	public List<Doelpunt> getDoelpunten() {
