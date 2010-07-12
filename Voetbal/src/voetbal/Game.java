@@ -2,7 +2,7 @@ package voetbal;
 
 public class Game {
 	private int speeldag;
-	private int seizoen;
+	private Periode seizoen;
 	
 	private Ploeg thuis;
 	private Ploeg uit;

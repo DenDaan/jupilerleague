@@ -4,6 +4,14 @@ import java.util.List;
 
 import voetbal.speler.Speler;
 
+
+/**
+ * De klasse Ploeg creëert een Object dat een voetbalploeg voorstelt. 
+ * Deze ploeg houdt uiteraard de spelers bij die een contract hebben bij het team,
+ *  maar ook de spelers die ooit voor de ploeg speelden, maar ondertussen bij een andere ploeg spelen of werkloos of met pensioen zijn.
+ * @author Daan Vleugels
+ *
+ */
 public class Ploeg {
 	private List<Speler> spelers;
 	private List<Speler> exSpelers;
@@ -11,43 +19,70 @@ public class Ploeg {
 
 	public static final Ploeg VRIJ = new Ploeg();
 
-	// TODO:Lijst van spelers aanmaken --> ook ex-spelers, zodat per speler de
-	// periode kan opgeroepen worden. De periode wordt bij de Speler bijgehouden
-	// in een tabel [Ploeg,Periode]
-
 	/**
-	 * Een voetbalploeg
+	 * Creërt een voetbalploeg zonder naam en zonder lijst van spelers en ex-spelers. Deze constructor wordt gebruikt om de 'Ploeg' van werklozen te creëren.
 	 */
-	public Ploeg() {
+	private Ploeg() {
 		this(null,null,null);
 	}
 
+	/**
+	 * Creëert een voetbalploeg met de opgegeven naam, maar zonder spelers of ex-spelers.
+	 * @param naam De naam van de voetbalploeg
+	 */
 	public Ploeg(String naam) {
 		this(naam,null,null);
 	}
 	
+	/**
+	 * Creëert een voetbalploeg met de opgegeven naam, lijst van spelers en lijst van ex-spelers.
+	 * @param naam De naam van de voetbalploeg
+	 * @param spelers De lijsts van de spelers die momenteel bij de ploeg aangesloten zijn
+	 * @param exSpelers De lijst van de spelers die bij de ploeg hebben gespeeld, maar nu ergens anders spelen of werkloos of met pensioen zijn
+	 */
 	public Ploeg(String naam, List<Speler> spelers, List<Speler> exSpelers){
 		this.naam=naam;
 		this.spelers=spelers;
 		this.exSpelers=exSpelers;
 	}
 
+	/**
+	 * Geeft een lijst met alle spelers die momenteel bij de club actief zijn.
+	 * @return De lijst van aangesloten spelers
+	 */
 	public List<Speler> getSpelers() {
 		return spelers;
 	}
 
+	/**
+	 * Geeft de lijst van spelers terug die ooit voor de ploeg speelden. 
+	 * Die spelers zijn nu met pensioen of werkloos of hebben zich aangesloten bij een ander team.
+	 * @return De lijst van voormalige spelers van de ploeg
+	 */
 	public List<Speler> getExSpelers() {
 		return exSpelers;
 	}
 
+	/**
+	 * Geeft de naam van de ploeg terug.
+	 * @return De naam van de ploeg
+	 */
 	public String getNaam() {
 		return naam;
 	}
 
+	/**
+	 * Verandert de naam van de ploeg in de opgegeven naam.
+	 * @param naam De nieuwe naam voor de ploeg
+	 */
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
 	
+	/**
+	 * Met deze methode neemt de ploeg de opgegeven Speler aan en wordt hij ontslagen door zijn oude ploeg.
+	 * @param speler De speler die opgenomen wordt in de ploeg.
+	 */
 	public void contracteer(Speler speler){
 		ontsla(speler);
 		VRIJ.getSpelers().remove(speler);
@@ -57,7 +92,7 @@ public class Ploeg {
 	}
 	
 	/**
-	 * Ontslaat de opgegeven speler uit deze ploeg en wordt hierdoor werkloos(wordt toegevoegd aan de Ploeg van werklozen: VRIJ).
+	 * Ontslaat de opgegeven speler uit de ploeg. Hij wordt hierdoor werkloos(wordt toegevoegd aan de Ploeg van werklozen: VRIJ).
 	 * @param speler
 	 */
 	public void ontsla(Speler speler){
@@ -67,7 +102,6 @@ public class Ploeg {
 		}
 		VRIJ.getSpelers().add(speler);
 		speler.setPloeg(VRIJ);
-		//TODO: speler ontslaan en in unemployed ploeg steken + in exspelers steken
 	}
 
 	public void transfer(Speler speler, Ploeg ploeg) {
