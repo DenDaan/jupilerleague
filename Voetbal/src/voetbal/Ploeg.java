@@ -15,6 +15,9 @@ public class Ploeg {
 	// periode kan opgeroepen worden. De periode wordt bij de Speler bijgehouden
 	// in een tabel [Ploeg,Periode]
 
+	/**
+	 * Een voetbalploeg
+	 */
 	public Ploeg() {
 		this(null,null,null);
 	}
