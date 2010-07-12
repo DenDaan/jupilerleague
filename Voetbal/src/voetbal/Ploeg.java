@@ -2,6 +2,8 @@ package voetbal;
 
 import java.util.List;
 
+import voetbal.speler.Speler;
+
 public class Ploeg {
 	private List<Speler> spelers;
 	private List<Speler> exSpelers;

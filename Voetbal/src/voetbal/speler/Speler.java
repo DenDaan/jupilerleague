@@ -1,4 +1,4 @@
-package voetbal;
+package voetbal.speler;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +12,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
+import voetbal.Periode;
+import voetbal.Ploeg;
+import voetbal.doelpunt.Assist;
+import voetbal.doelpunt.Doelpunt;
+import voetbal.kaart.Kaart;
+
 import datum.Datum;
 import datum.DatumException;
 
@@ -24,13 +30,25 @@ public class Speler {
 	private ArrayList<Positie> posities;
 	private Voet goedeVoet;
 
-	// TODO: keyset met ploeg en begin en einde periode
 	private TreeMap<Periode, Ploeg> ploegen;
 	private List<Doelpunt> doelpunten;
 	private List<Assist> assists;
 
-	public List<Kaart> kaarten;
-	public boolean geschorst = false;
+	private List<Kaart> kaarten;
+	private boolean geschorst = false;
+
+	public Speler(String voornaam, String familienaam,
+			ArrayList<String> nationaliteiten, Datum geboortejaar,
+			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
+		super();
+		this.voornaam = voornaam;
+		this.familienaam = familienaam;
+		this.nationaliteiten = nationaliteiten;
+		this.geboortejaar = geboortejaar;
+		this.posities = posities;
+		this.goedeVoet = goedeVoet;
+		setPloeg(ploeg);
+	}
 
 	public String getVoornaam() {
 		return voornaam;
@@ -121,7 +139,6 @@ public class Speler {
 	}
 
 	public void setPloeg(Ploeg ploeg) {
-		// TODO: if geen ploeg: setPloeg(unemployed)
 		try {
 			setPloeg(new Periode(), ploeg);
 		} catch (DatumException de) {

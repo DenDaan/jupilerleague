@@ -1,4 +1,4 @@
-package voetbal;
+package voetbal.speler;
 
 public enum DieptePositie {
 	//TODO

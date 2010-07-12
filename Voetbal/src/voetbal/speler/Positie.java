@@ -1,4 +1,5 @@
-package voetbal;
+package voetbal.speler;
+
 
 public enum Positie {
 	// TODO: verschillende posities opgeven

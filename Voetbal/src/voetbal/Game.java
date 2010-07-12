@@ -1,11 +1,11 @@
 package voetbal;
 
-public class Wedstrijd {
+public class Game {
 	private int speeldag;
 	private int seizoen;
 	
 	private Ploeg thuis;
 	private Ploeg uit;
 
-	public Wedstrijd(){}
+	public Game(){}
 }
