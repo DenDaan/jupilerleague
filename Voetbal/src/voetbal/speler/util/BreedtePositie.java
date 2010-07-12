@@ -1,4 +1,4 @@
-package voetbal.speler;
+package voetbal.speler.util;
 
 public enum BreedtePositie {
 	//TODO

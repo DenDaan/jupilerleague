@@ -1,6 +1,7 @@
 package voetbal.doelpunt;
 
 import voetbal.Game;
+import voetbal.doelpunt.util.Manier;
 import voetbal.speler.Speler;
 
 public class Doelpunt {

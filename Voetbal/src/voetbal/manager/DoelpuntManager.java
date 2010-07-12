@@ -5,7 +5,7 @@ import java.util.List;
 import voetbal.Game;
 import voetbal.doelpunt.Assist;
 import voetbal.doelpunt.Doelpunt;
-import voetbal.doelpunt.Manier;
+import voetbal.doelpunt.util.Manier;
 import voetbal.speler.Speler;
 
 public class DoelpuntManager {

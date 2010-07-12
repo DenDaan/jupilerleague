@@ -17,6 +17,8 @@ import voetbal.Ploeg;
 import voetbal.doelpunt.Assist;
 import voetbal.doelpunt.Doelpunt;
 import voetbal.kaart.Kaart;
+import voetbal.speler.util.Positie;
+import voetbal.speler.util.Voet;
 
 import datum.Datum;
 import datum.DatumException;
