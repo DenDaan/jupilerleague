@@ -1,12 +1,8 @@
 package voetbal.speler;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -14,7 +10,6 @@ import java.util.Map.Entry;
 
 import voetbal.Periode;
 import voetbal.Ploeg;
-import voetbal.doelpunt.Assist;
 import voetbal.doelpunt.Doelpunt;
 import voetbal.kaart.Kaart;
 import voetbal.speler.util.Positie;
@@ -34,7 +29,7 @@ public class Speler {
 
 	private TreeMap<Periode, Ploeg> ploegen;
 	private List<Doelpunt> doelpunten;
-	private List<Assist> assists;
+	private List<Doelpunt> assists;
 
 	private List<Kaart> kaarten;
 	private boolean geschorst = false;
@@ -42,7 +37,6 @@ public class Speler {
 	public Speler(String voornaam, String familienaam,
 			ArrayList<String> nationaliteiten, Datum geboortejaar,
 			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
-		super();
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.nationaliteiten = nationaliteiten;
@@ -108,7 +102,7 @@ public class Speler {
 		return doelpunten;
 	}
 
-	public List<Assist> getAssists() {
+	public List<Doelpunt> getAssists() {
 		return assists;
 	}
 
@@ -198,8 +192,8 @@ public class Speler {
 		return result;
 	}
 
-	public void addAssist(Assist assist) {
-		assists.add(assist);
+	public void addAssist(Doelpunt doelpunt) {
+		assists.add(doelpunt);
 	}
 
 	public void addDoelpunt(Doelpunt doelpunt) {

@@ -46,11 +46,25 @@ public class Ploeg {
 	}
 	
 	public void contracteer(Speler speler){
+		ontsla(speler);
+		VRIJ.getSpelers().remove(speler);
+		spelers.add(speler);
+		speler.setPloeg(this);
 		//TODO: speler aannemen en ontslaan van ploeg of uit unemployed ploeg halen
 	}
 	
+	/**
+	 * Ontslaat de opgegeven speler uit deze ploeg en wordt hierdoor werkloos(wordt toegevoegd aan de Ploeg van werklozen: VRIJ).
+	 * @param speler
+	 */
 	public void ontsla(Speler speler){
-		//TODO: speler ontslaan en in unemployed ploeg steken
+		speler.getPloeg().spelers.remove(speler);
+		if(!exSpelers.contains(speler)){
+			exSpelers.add(speler);	
+		}
+		VRIJ.getSpelers().add(speler);
+		speler.setPloeg(VRIJ);
+		//TODO: speler ontslaan en in unemployed ploeg steken + in exspelers steken
 	}
 
 	public void transfer(Speler speler, Ploeg ploeg) {
