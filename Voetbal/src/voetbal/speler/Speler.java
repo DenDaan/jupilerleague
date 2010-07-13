@@ -70,7 +70,7 @@ public class Speler {
 		this.goedeVoet = goedeVoet;
 		setPloeg(ploeg);
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
