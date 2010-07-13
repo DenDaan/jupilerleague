@@ -1,9 +1,12 @@
 package voetbal.doelpunt;
 
 import voetbal.Game;
+import javax.persistence.*;
 import voetbal.doelpunt.util.Manier;
 import voetbal.speler.Speler;
 
+@Entity
+@Table(name="doelpunten")
 public class Doelpunt {
 
 	private int minuut;
