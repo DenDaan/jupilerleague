@@ -3,7 +3,7 @@ package voetbal;
 import java.util.List;
 
 import voetbal.speler.Speler;
-
+import javax.persistence.*;
 
 /**
  * De klasse Ploeg creëert een Object dat een voetbalploeg voorstelt. 
@@ -12,9 +12,24 @@ import voetbal.speler.Speler;
  * @author Daan Vleugels
  *
  */
+@Entity
+@Table(name="TEAMS")
 public class Ploeg {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="TEAM_ID")
+	private int id;
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@Column(name="PLAYERS")
 	private List<Speler> spelers;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@Column(name="EX_PLAYERS")
 	private List<Speler> exSpelers;
+	
+	@Column(name="NAME")
 	private String naam;
 
 	public static final Ploeg VRIJ = new Ploeg();
@@ -44,6 +59,14 @@ public class Ploeg {
 		this.naam=naam;
 		this.spelers=spelers;
 		this.exSpelers=exSpelers;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id=id;
 	}
 
 	/**

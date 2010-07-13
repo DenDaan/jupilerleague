@@ -1,6 +1,7 @@
 package voetbal.speler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -17,25 +18,49 @@ import voetbal.speler.util.Voet;
 
 import datum.Datum;
 import datum.DatumException;
+import javax.persistence.*;
 
+@Entity
+@Table(name="PLAYERS")
 public class Speler {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="PLAYER_ID")
+	private int id;
 
+	@Column(name="GIVEN_NAME")
 	private String voornaam;
+	
+	@Column(name="NAME")
 	private String familienaam;
+	
+	@Column(name="NATIONS")
 	private ArrayList<String> nationaliteiten;
-	private Datum geboortejaar;
-	private ArrayList<Positie> posities;
+	
+	@Column(name="BIRTHDAY")
+	private Calendar geboortejaar;
+	
+	private ArrayList<Positie> posities = new ArrayList<Positie>();
+	
+	@Enumerated
+	@Column(name="PREFERRED_FOOT")
 	private Voet goedeVoet;
 
 	private TreeMap<Periode, Ploeg> ploegen;
+	
+	@OneToMany
 	private List<Doelpunt> doelpunten;
+	
+	@OneToMany
 	private List<Doelpunt> assists;
 
+	@OneToMany
 	private List<Kaart> kaarten;
 	private boolean geschorst = false;
 
 	public Speler(String voornaam, String familienaam,
-			ArrayList<String> nationaliteiten, Datum geboortejaar,
+			ArrayList<String> nationaliteiten, Calendar geboortejaar,
 			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
@@ -44,6 +69,14 @@ public class Speler {
 		this.posities = posities;
 		this.goedeVoet = goedeVoet;
 		setPloeg(ploeg);
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getVoornaam() {
@@ -78,7 +111,7 @@ public class Speler {
 		nationaliteiten.add(nation);//TODO: nationaliteit toegvoegen
 	}
 	
-	public Datum getGeboortejaar(){
+	public Calendar getGeboortejaar(){
 		return geboortejaar;
 	}
 
@@ -119,15 +152,17 @@ public class Speler {
 	}
 
 	public int getLeeftijd() {
-		int result = geboortejaar.getJaar();
-		if (geboortejaar.getMaand() > Datum.now().getMaand()) {
-			return (result - 1);
-		}
-		if (geboortejaar.getMaand() == Datum.now().getMaand()
-				&& geboortejaar.getDag() > Datum.now().getDag()) {
-			return (result - 1);
-		}
-		return result;
+		//TODO
+//		int result = geboortejaar.getJaar();
+//		if (geboortejaar.getMaand() > Datum.now().getMaand()) {
+//			return (result - 1);
+//		}
+//		if (geboortejaar.getMaand() == Datum.now().getMaand()
+//				&& geboortejaar.getDag() > Datum.now().getDag()) {
+//			return (result - 1);
+//		}
+//		return result;
+		return -1;
 	}
 
 	public Ploeg getPloeg() {

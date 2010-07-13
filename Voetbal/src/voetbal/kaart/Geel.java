@@ -1,7 +1,11 @@
 package voetbal.kaart;
 
+import javax.persistence.*;
+
+@Entity
 public class Geel extends Kaart {
-	// TODO
+
 	public Geel() {
+		kleur = "geel";
 	}
 }

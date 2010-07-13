@@ -1,5 +1,11 @@
 package voetbal.kaart;
 
-public class Rood extends Kaart{
-//TODO
+import javax.persistence.*;
+
+@Entity
+public class Rood extends Kaart {
+
+	public Rood() {
+		kleur = "rood";
+	}
 }

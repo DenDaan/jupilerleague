@@ -7,7 +7,7 @@
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-			<property name="hibernate.connection.url" value="jdbc:mysql://javaprofs.be:1306/DaanDBVoetbal"/>
+			<property name="hibernate.connection.url" value="jdbc:mysql://javaprofs.be:1306/DaanVoetbal"/>
 			<property name="hibernate.connection.username" value="cursist"/>
 			<property name="hibernate.connection.password" value="4badv12l"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>

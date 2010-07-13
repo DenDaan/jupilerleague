@@ -1,18 +1,30 @@
 package voetbal;
 
 import java.sql.Date;
-import datum.*;
+import java.util.Calendar;
 
+import datum.*;
+import javax.persistence.*;
+
+@Entity
+@Table(name="PERIODS")
 public class Periode {
 
-	private Datum begin;
-	private Datum einde;
+	@Id
+	@GeneratedValue
+	private int id;
+
+	@Temporal(TemporalType.DATE)
+	private Calendar begin = Calendar.getInstance();
+	
+	@Temporal(TemporalType.DATE)
+	private Calendar einde = Calendar.getInstance();
 	/**
 	 * Creëert een periode die op het moment van de creatie begint en nog niet voorbij is.
 	 * @throws DatumException
 	 */
 	public Periode() throws DatumException{
-		this(Datum.now(),null);
+		this(Calendar.getInstance(),null);
 	}
 	
 	/**
@@ -20,7 +32,7 @@ public class Periode {
 	 * @param begin Beginmoment van de periode, in de vorm van een Datum-object
 	 * @throws DatumException
 	 */
-	public Periode(Datum begin) throws DatumException{
+	public Periode(Calendar begin) throws DatumException{
 		this(begin,null);
 	}
 
@@ -30,7 +42,7 @@ public class Periode {
 	 * @param einde Eindmoment van de periode, in de vorm van een Datum-object
 	 * @throws DatumException
 	 */
-	public Periode(Datum begin, Datum einde) throws DatumException {
+	public Periode(Calendar begin, Calendar einde) throws DatumException {
 		if (geldigePeriode(begin, einde)) {
 			this.begin = begin;
 			this.einde = einde;
@@ -40,27 +52,40 @@ public class Periode {
 		;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	/**
 	 * Checkt of de opgegeven periode, in de vorm van een begin- en eindmoment, een geldige periode is.\n
 	 * Een periode is geldig als: \n
 	 * 1) het tweede moment later is dan het eerste \n
 	 * 2) beide momenten niet na het moment van de creatie van de periode liggen
-	 * @param datum1 het beginmoment van de periode, in de vorm van een Datum-object
-	 * @param datum2 het eindmoment van de periode, in de vorm van een Datum-object
+	 * @param begin2 het beginmoment van de periode, in de vorm van een Datum-object
+	 * @param einde2 het eindmoment van de periode, in de vorm van een Datum-object
 	 * @return true als de opgegeven periode een geldige periode is. Anders wordt false teruggegeven.
 	 */
-	private boolean geldigePeriode(Datum datum1, Datum datum2) {
-		return (datum2.compareTo(datum1)>0 && datum1.compareTo(Datum.now())<=0
-				&& datum2.compareTo(Datum.now())<=0 ? true : false);
+	private boolean geldigePeriode(Calendar begin2, Calendar einde2) {
+		if(einde2==null){
+			if(!begin2.after(Calendar.getInstance()))
+				return true;
+			return false;
+		}
+		return (einde2.after(begin2) && !begin2.after(Calendar.getInstance())
+				&& !einde2.after(Calendar.getInstance()) ? true : false);
 	}
 	
-	public Datum getBegin(){
+	public Calendar getBegin(){
 		return begin;
 	}
 	
-	public Datum getEinde(){
+	public Calendar getEinde(){
 		if(einde==null)
-			return Datum.now();
+			return Calendar.getInstance();
 		return einde;
 	}
 }
