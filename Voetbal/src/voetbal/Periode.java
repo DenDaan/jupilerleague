@@ -15,10 +15,11 @@ public class Periode {
 	private int id;
 
 	@Temporal(TemporalType.DATE)
-	private Calendar begin = Calendar.getInstance();
+	private Calendar begin;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar einde = Calendar.getInstance();
+	private Calendar einde;
+	
 	/**
 	 * Creëert een periode die op het moment van de creatie begint en nog niet voorbij is.
 	 * @throws DatumException
