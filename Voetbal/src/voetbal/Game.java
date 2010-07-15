@@ -4,11 +4,12 @@ import javax.persistence.*;
 
 import voetbal.doelpunt.*;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Table(name="GAMES")
-public class Game {
+public class Game implements Serializable {
 	
 	@Id
 	@GeneratedValue
@@ -18,15 +19,15 @@ public class Game {
 	@Column(name="MATCHDAY")
 	private int speeldag;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	//@Column(name="SEASON")
 	private Periode seizoen;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	//@Column(name="HOME_TEAM")
 	private Ploeg thuis;
 	
-	@ManyToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	//@Column(name="AWAY_TEAM")
 	private Ploeg uit;
 	

@@ -1,5 +1,6 @@
 package voetbal.speler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -22,7 +23,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="PLAYERS")
-public class Speler {
+public class Speler implements Serializable{
 	
 	@Id
 	@GeneratedValue
@@ -47,15 +48,15 @@ public class Speler {
 	@Column(name="PREFERRED_FOOT")
 	private Voet goedeVoet;
 
-	private TreeMap<Periode, Ploeg> ploegen;
+	private TreeMap<Periode, Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Doelpunt> doelpunten;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Doelpunt> assists;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Kaart> kaarten;
 	private boolean geschorst = false;
 

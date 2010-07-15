@@ -2,6 +2,7 @@ package voetbal.doelpunt;
 
 import voetbal.Game;
 import javax.persistence.*;
+
 import voetbal.doelpunt.util.Manier;
 import voetbal.speler.Speler;
 
@@ -20,13 +21,13 @@ public class Doelpunt {
 	@Column(name="WAY")
 	private Manier manier;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Speler spelerPunt;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Speler spelerAssist;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Game game;
 	
 	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Manier manier){

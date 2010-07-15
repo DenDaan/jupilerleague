@@ -11,12 +11,12 @@ public abstract class Kaart {
 	@GeneratedValue
 	protected int id;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	protected Game game;
 	
 	protected int minuut;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	protected Speler speler;
 	
 	protected String kleur;
