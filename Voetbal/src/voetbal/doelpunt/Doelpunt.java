@@ -1,5 +1,7 @@
 package voetbal.doelpunt;
 
+import java.io.Serializable;
+
 import voetbal.Game;
 import javax.persistence.*;
 
@@ -8,7 +10,7 @@ import voetbal.speler.Speler;
 
 @Entity
 @Table(name="GOALS")
-public class Doelpunt {
+public class Doelpunt implements Serializable{
 	
 	@Id
 	@GeneratedValue

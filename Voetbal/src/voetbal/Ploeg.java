@@ -1,5 +1,6 @@
 package voetbal;
 
+import java.io.Serializable;
 import java.util.List;
 
 import voetbal.speler.Speler;
@@ -14,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="TEAMS")
-public class Ploeg {
+public class Ploeg implements Serializable{
 	
 	@Id
 	@GeneratedValue

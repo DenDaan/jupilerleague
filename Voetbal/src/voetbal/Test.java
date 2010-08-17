@@ -2,6 +2,7 @@ package voetbal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.persistence.*;
 
@@ -28,14 +29,15 @@ public class Test {
 		Ploeg brugge = new Ploeg("Club Brugge");
 		ArrayList<String> nationaliteiten = new ArrayList<String>();
 		nationaliteiten.add("Marrokkaan");
+		Periode periode = new Periode(new GregorianCalendar(2005,12,11), new GregorianCalendar());
 		ArrayList<Positie> posities = new ArrayList<Positie>();
 		posities.add(Positie.LAM);
 		Calendar caldirar = Calendar.getInstance();
 		Calendar calbous = Calendar.getInstance();
 		caldirar.set(1985, 2, 12);
 		calbous.set(1984,5,23);
-		Speler dirar = new Speler("Nabil", "Dirar",nationaliteiten ,caldirar, posities, Voet.BEIDE, brugge);
-		Speler bous = new Speler("Mbark", "Boussouffa",nationaliteiten ,calbous, posities, Voet.BEIDE, brugge);
+		Speler dirar = new Speler("Nabil", "Dirar",nationaliteiten ,caldirar, posities, Voet.BEIDE, brugge,periode);
+		Speler bous = new Speler("Mbark", "Boussouffa",nationaliteiten ,calbous, posities, Voet.BEIDE, brugge,periode);
 		Game game = new Game();
 		game.setSeizoen(new Periode());
 		game.setSpeeldag(3);

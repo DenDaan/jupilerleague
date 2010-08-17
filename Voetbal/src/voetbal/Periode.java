@@ -1,5 +1,6 @@
 package voetbal;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="PERIODS")
-public class Periode {
+public class Periode implements Serializable{
 
 	@Id
 	@GeneratedValue
@@ -88,5 +89,10 @@ public class Periode {
 		if(einde==null)
 			return Calendar.getInstance();
 		return einde;
+	}
+
+	public int compareTo(Periode periode) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

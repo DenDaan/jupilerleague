@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
 import voetbal.Periode;
+import voetbal.PeriodeBijPloeg;
 import voetbal.Ploeg;
 import voetbal.doelpunt.Doelpunt;
 import voetbal.kaart.Kaart;
@@ -20,6 +22,9 @@ import voetbal.speler.util.Voet;
 import datum.Datum;
 import datum.DatumException;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 @Entity
 @Table(name="PLAYERS")
@@ -48,7 +53,10 @@ public class Speler implements Serializable{
 	@Column(name="PREFERRED_FOOT")
 	private Voet goedeVoet;
 
-	private TreeMap<Periode, Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
+	@OneToMany(mappedBy="ploeg")
+	@Sort(type = SortType.NATURAL) 
+	private SortedSet<PeriodeBijPloeg> ploegen = new TreeSet<PeriodeBijPloeg>();
+	//private TreeMap<Periode, Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Doelpunt> doelpunten;
@@ -70,6 +78,18 @@ public class Speler implements Serializable{
 		this.posities = posities;
 		this.goedeVoet = goedeVoet;
 		setPloeg(ploeg);
+	}
+	
+	public Speler(String voornaam, String familienaam,
+			ArrayList<String> nationaliteiten, Calendar geboortejaar,
+			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg, Periode periode) {
+		this.voornaam = voornaam;
+		this.familienaam = familienaam;
+		this.nationaliteiten = nationaliteiten;
+		this.geboortejaar = geboortejaar;
+		this.posities = posities;
+		this.goedeVoet = goedeVoet;
+		setPloeg(periode,ploeg);
 	}
 	
 	public void setId(int id) {
@@ -167,7 +187,7 @@ public class Speler implements Serializable{
 	}
 
 	public Ploeg getPloeg() {
-		return ploegen.lastEntry().getValue();
+		return ploegen.last().getPloeg();
 	}
 
 	public void setPloeg(Ploeg ploeg) {
@@ -180,7 +200,8 @@ public class Speler implements Serializable{
 
 	public void setPloeg(Periode periode, Ploeg ploeg) {
 		// TODO: if geen ploeg: setPloeg(unemployed)
-		ploegen.put(periode, ploeg);
+		PeriodeBijPloeg pbp = new PeriodeBijPloeg(periode, ploeg);
+		ploegen.add(pbp);
 	}
 
 	/**
@@ -200,29 +221,39 @@ public class Speler implements Serializable{
 	 * @param periode
 	 */
 	public void unemployed(Periode periode) {
-		ploegen.put(periode, Ploeg.VRIJ);
+		ploegen.add(new PeriodeBijPloeg(periode, Ploeg.VRIJ));
 	}
 
-	public TreeMap<Periode, Ploeg> getPloegenEnPeriode() {
+	public SortedSet<PeriodeBijPloeg> getPloegenEnPeriode() {
 		return ploegen;
 	}
 
-	public TreeSet<Ploeg> getPloegen() {
-		return (TreeSet<Ploeg>) ploegen.values();
+	public SortedSet<Ploeg> getPloegen() {
+		SortedSet<Ploeg> result=null;
+		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
+		while(it.hasNext()){
+			result.add(it.next().getPloeg());
+		}
+		return result;
 	}
 
-	public TreeSet<Periode> getPeriodes() {
-		return (TreeSet<Periode>) ploegen.keySet();
+	public SortedSet<Periode> getPeriodes() {
+		SortedSet<Periode> result=null;
+		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
+		while(it.hasNext()){
+			result.add(it.next().getPeriode());
+		}
+		return result;
 	}
 
-	public TreeSet<Periode> periodeBijPloeg(Ploeg ploeg) {
-		Iterator<Entry<Periode, Ploeg>> it = ploegen.entrySet().iterator();
-		TreeSet<Periode> result = null;
-		Entry<Periode, Ploeg> temp;
+	public SortedSet<Periode> periodeBijPloeg(Ploeg ploeg) {
+		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
+		SortedSet<Periode> result = null;
+		PeriodeBijPloeg temp;
 		while (it.hasNext()) {
 			temp = it.next();
-			if (temp.getValue().equals(ploeg)) {
-				result.add(temp.getKey());
+			if (temp.getPloeg().equals(ploeg)) {
+				result.add(temp.getPeriode());
 			}
 		}
 		return result;
