@@ -10,7 +10,7 @@ import datum.Datum;
 import datum.DatumException;
 
 import voetbal.doelpunt.Doelpunt;
-import voetbal.doelpunt.util.Manier;
+import voetbal.doelpunt.util.DoelpuntManier;
 import voetbal.speler.Speler;
 import voetbal.speler.util.Positie;
 import voetbal.speler.util.Voet;
@@ -43,8 +43,8 @@ public class Test {
 		game.setSpeeldag(3);
 		game.setThuis(brugge);
 		game.setUit(brugge);
-		game.addDoelpunt(new Doelpunt(dirar, dirar, 43, Manier.VOLLEY));
-		game.addDoelpunt(new Doelpunt(bous,dirar,57,Manier.VRIJETRAP));
+		game.addDoelpunt(new Doelpunt(dirar, dirar, 43, DoelpuntManier.VOLLEY));
+		game.addDoelpunt(new Doelpunt(bous,dirar,57,DoelpuntManier.VRIJETRAP));
 		em.persist(game);
 		tx.commit();
 		em.close();

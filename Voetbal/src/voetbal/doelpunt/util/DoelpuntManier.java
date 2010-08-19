@@ -1,5 +1,5 @@
 package voetbal.doelpunt.util;
 
-public enum Manier {
+public enum DoelpuntManier {
 	KOP,OWNGOAL,VOLLEY,VRIJETRAP,PENALTY,ONGELDIG
 }

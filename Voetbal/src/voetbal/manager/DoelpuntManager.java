@@ -4,7 +4,7 @@ import java.util.List;
 
 import voetbal.Game;
 import voetbal.doelpunt.Doelpunt;
-import voetbal.doelpunt.util.Manier;
+import voetbal.doelpunt.util.DoelpuntManier;
 import voetbal.speler.Speler;
 
 public class DoelpuntManager {
@@ -20,8 +20,8 @@ public class DoelpuntManager {
 	private static List<Doelpunt> doelpunten;
 	
 	
-	public static void addDoelpunt(Game match, Speler scorer, Speler assister, int minuut,Manier manier){
-		Doelpunt temp = new Doelpunt(scorer,assister,minuut,match,manier);
+	public static void addDoelpunt(Game match, Speler scorer, Speler assister, int minuut,DoelpuntManier doelpuntManier){
+		Doelpunt temp = new Doelpunt(scorer,assister,minuut,match,doelpuntManier);
 		scorer.addDoelpunt(temp);
 		assister.addAssist(temp);
 		doelpunten.add(temp);

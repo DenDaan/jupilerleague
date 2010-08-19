@@ -5,7 +5,7 @@ import java.io.Serializable;
 import voetbal.Game;
 import javax.persistence.*;
 
-import voetbal.doelpunt.util.Manier;
+import voetbal.doelpunt.util.DoelpuntManier;
 import voetbal.speler.Speler;
 
 @Entity
@@ -21,7 +21,7 @@ public class Doelpunt implements Serializable{
 	
 	@Enumerated
 	@Column(name="WAY")
-	private Manier manier;
+	private DoelpuntManier doelpuntManier;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Speler spelerPunt;
@@ -32,18 +32,18 @@ public class Doelpunt implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Game game;
 	
-	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Manier manier){
+	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, DoelpuntManier doelpuntManier){
 		this.spelerPunt=spelerPunt;		
 		this.spelerAssist=spelerAssist;
 		this.minuut=minuut;
-		this.manier=manier;
+		this.doelpuntManier=doelpuntManier;
 	}
 	
-	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Game match, Manier manier) {
+	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Game match, DoelpuntManier doelpuntManier) {
 		this.spelerPunt=spelerPunt;		
 		this.spelerAssist=spelerAssist;
 		this.minuut=minuut;
-		this.manier=manier;
+		this.doelpuntManier=doelpuntManier;
 		this.game=match;
 	}
 
@@ -59,8 +59,8 @@ public class Doelpunt implements Serializable{
 		return minuut;
 	}
 	
-	public Manier getManier(){
-		return manier;
+	public DoelpuntManier getManier(){
+		return doelpuntManier;
 	}
 	
 	public Speler getSpelerPunt(){
