@@ -32,10 +32,8 @@ public class Test {
 		Periode periode = new Periode(new GregorianCalendar(2005,12,11), new GregorianCalendar());
 		ArrayList<Positie> posities = new ArrayList<Positie>();
 		posities.add(Positie.LAM);
-		Calendar caldirar = Calendar.getInstance();
-		Calendar calbous = Calendar.getInstance();
-		caldirar.set(1985, 2, 12);
-		calbous.set(1984,5,23);
+		GregorianCalendar caldirar = new GregorianCalendar(1985,12,4);
+		GregorianCalendar calbous = new GregorianCalendar(1984,5,14);
 		Speler dirar = new Speler("Nabil", "Dirar",nationaliteiten ,caldirar, posities, Voet.BEIDE, brugge,periode);
 		Speler bous = new Speler("Mbark", "Boussouffa",nationaliteiten ,calbous, posities, Voet.BEIDE, brugge,periode);
 		Game game = new Game();
@@ -43,12 +41,13 @@ public class Test {
 		game.setSpeeldag(3);
 		game.setThuis(brugge);
 		game.setUit(brugge);
-		game.addDoelpunt(new Doelpunt(dirar, dirar, 43, DoelpuntManier.VOLLEY));
-		game.addDoelpunt(new Doelpunt(bous,dirar,57,DoelpuntManier.VRIJETRAP));
+		game.addDoelpunt(new Doelpunt(dirar, dirar, 43, DoelpuntManier.VOLLEY, game));
+		game.addDoelpunt(new Doelpunt(bous,dirar,57,DoelpuntManier.VRIJETRAP, game));
 		em.persist(game);
 		tx.commit();
 		em.close();
 		emf.close();
+		System.out.println("Finished");
 	}
 
 }

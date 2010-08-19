@@ -17,26 +17,27 @@ public class Doelpunt implements Serializable{
 	@Column(name="GOAL_ID")
 	private int id;
 
-	private int minuut;
+	private final int minuut;
 	
 	@Enumerated
 	@Column(name="WAY")
-	private DoelpuntManier doelpuntManier;
+	private final DoelpuntManier doelpuntManier;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Speler spelerPunt;
+	private final Speler spelerPunt;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Speler spelerAssist;
+	private final Speler spelerAssist;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	private Game game;
+	private final Game game;
 	
-	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, DoelpuntManier doelpuntManier){
+	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, DoelpuntManier doelpuntManier, Game game){
 		this.spelerPunt=spelerPunt;		
 		this.spelerAssist=spelerAssist;
 		this.minuut=minuut;
 		this.doelpuntManier=doelpuntManier;
+		this.game=game;
 	}
 	
 	public Doelpunt(Speler spelerPunt, Speler spelerAssist, int minuut, Game match, DoelpuntManier doelpuntManier) {

@@ -3,6 +3,7 @@ package voetbal.speler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
@@ -36,16 +37,16 @@ public class Speler implements Serializable{
 	private int id;
 
 	@Column(name="GIVEN_NAME")
-	private String voornaam;
+	private final String voornaam;
 	
 	@Column(name="NAME")
-	private String familienaam;
+	private final String familienaam;
 	
 	@Column(name="NATIONS")
 	private ArrayList<String> nationaliteiten;
 	
 	@Column(name="BIRTHDAY")
-	private Calendar geboortejaar;
+	private final GregorianCalendar geboortejaar;
 	
 	private ArrayList<Positie> posities = new ArrayList<Positie>();
 	
@@ -59,17 +60,17 @@ public class Speler implements Serializable{
 	//private TreeMap<Periode, Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Doelpunt> doelpunten;
+	private List<Doelpunt> doelpunten = new ArrayList<Doelpunt>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Doelpunt> assists;
+	private List<Doelpunt> assists = new ArrayList<Doelpunt>();
 
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Kaart> kaarten;
+	private List<Kaart> kaarten = new ArrayList<Kaart>();
 	private boolean geschorst = false;
 
 	public Speler(String voornaam, String familienaam,
-			ArrayList<String> nationaliteiten, Calendar geboortejaar,
+			ArrayList<String> nationaliteiten, GregorianCalendar geboortejaar,
 			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
@@ -81,13 +82,25 @@ public class Speler implements Serializable{
 	}
 	
 	public Speler(String voornaam, String familienaam,
-			ArrayList<String> nationaliteiten, Calendar geboortejaar,
+			ArrayList<String> nationaliteiten, GregorianCalendar geboortejaar,
 			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg, Periode periode) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.nationaliteiten = nationaliteiten;
 		this.geboortejaar = geboortejaar;
 		this.posities = posities;
+		this.goedeVoet = goedeVoet;
+		setPloeg(periode,ploeg);
+	}
+	
+	public Speler(String voornaam, String familienaam,
+			String nationaliteit, GregorianCalendar geboortejaar,
+			Positie positie, Voet goedeVoet, Ploeg ploeg, Periode periode) {
+		this.voornaam = voornaam;
+		this.familienaam = familienaam;
+		addNationaliteit(nationaliteit);
+		this.geboortejaar = geboortejaar;
+		addPositie(positie);
 		this.goedeVoet = goedeVoet;
 		setPloeg(periode,ploeg);
 	}
