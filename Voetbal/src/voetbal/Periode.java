@@ -1,11 +1,13 @@
 package voetbal;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Calendar;
 
 import datum.*;
 import javax.persistence.*;
+
+import voetbal.speler.util.GoodDate;
 
 @Entity
 @Table(name="PERIODS")
@@ -16,17 +18,17 @@ public class Periode implements Serializable{
 	private int id;
 
 	@Temporal(TemporalType.DATE)
-	private Calendar begin;
+	private Date begin;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar einde;
+	private Date einde;
 	
 	/**
 	 * Creëert een periode die op het moment van de creatie begint en nog niet voorbij is.
 	 * @throws DatumException
 	 */
 	public Periode() throws DatumException{
-		this(Calendar.getInstance(),null);
+		this(new Date(),null);
 	}
 	
 	/**
@@ -34,7 +36,7 @@ public class Periode implements Serializable{
 	 * @param begin Beginmoment van de periode, in de vorm van een Datum-object
 	 * @throws DatumException
 	 */
-	public Periode(Calendar begin) throws DatumException{
+	public Periode(Date begin) throws DatumException{
 		this(begin,null);
 	}
 
@@ -44,7 +46,7 @@ public class Periode implements Serializable{
 	 * @param einde Eindmoment van de periode, in de vorm van een Datum-object
 	 * @throws DatumException
 	 */
-	public Periode(Calendar begin, Calendar einde) throws DatumException {
+	public Periode(Date begin, Date einde) throws DatumException {
 		if (geldigePeriode(begin, einde)) {
 			this.begin = begin;
 			this.einde = einde;
@@ -71,23 +73,24 @@ public class Periode implements Serializable{
 	 * @param einde2 het eindmoment van de periode, in de vorm van een Datum-object
 	 * @return true als de opgegeven periode een geldige periode is. Anders wordt false teruggegeven.
 	 */
-	private boolean geldigePeriode(Calendar begin2, Calendar einde2) {
-		if(einde2==null){
-			if(!begin2.after(Calendar.getInstance()))
+	private boolean geldigePeriode(Date begin, Date einde) {
+		Date now = new Date();
+		if(einde==null){
+			if(!begin.after(now))
 				return true;
 			return false;
 		}
-		return (einde2.after(begin2) && !begin2.after(Calendar.getInstance())
-				&& !einde2.after(Calendar.getInstance()) ? true : false);
+		return (einde.after(begin) && !begin.after(now)
+				&& !einde.after(now) ? true : false);
 	}
 	
-	public Calendar getBegin(){
+	public Date getBegin(){
 		return begin;
 	}
 	
-	public Calendar getEinde(){
+	public Date getEinde(){
 		if(einde==null)
-			return Calendar.getInstance();
+			return new Date();
 		return einde;
 	}
 

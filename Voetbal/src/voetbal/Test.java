@@ -1,17 +1,18 @@
 package voetbal;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.*;
 
-import datum.Datum;
 import datum.DatumException;
 
 import voetbal.doelpunt.Doelpunt;
 import voetbal.doelpunt.util.DoelpuntManier;
 import voetbal.speler.Speler;
+import voetbal.speler.util.GoodDate;
 import voetbal.speler.util.Positie;
 import voetbal.speler.util.Voet;
 
@@ -27,15 +28,14 @@ public class Test {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		Ploeg brugge = new Ploeg("Club Brugge");
-		ArrayList<String> nationaliteiten = new ArrayList<String>();
+		List<String> nationaliteiten = new ArrayList<String>();
 		nationaliteiten.add("Marrokkaan");
-		Periode periode = new Periode(new GregorianCalendar(2005,12,11), new GregorianCalendar());
-		ArrayList<Positie> posities = new ArrayList<Positie>();
+		Periode periode = new Periode(GoodDate.createDate(11,12,2005), new Date());
+		List<Positie> posities = new ArrayList<Positie>();
 		posities.add(Positie.LAM);
-		GregorianCalendar caldirar = new GregorianCalendar(1985,12,4);
-		GregorianCalendar calbous = new GregorianCalendar(1984,5,14);
-		Speler dirar = new Speler("Nabil", "Dirar",nationaliteiten ,caldirar, posities, Voet.BEIDE, brugge,periode);
-		Speler bous = new Speler("Mbark", "Boussouffa",nationaliteiten ,calbous, posities, Voet.BEIDE, brugge,periode);
+		Speler dirar = new Speler("Nabil", "Dirar",nationaliteiten ,GoodDate.createDate(4, 12, 1985), posities, Voet.BEIDE, brugge,periode);
+		Speler bous = new Speler("Mbark", "Boussouffa",nationaliteiten ,GoodDate.createDate(14, 5, 1985), posities, Voet.BEIDE, brugge,periode);
+		
 		Game game = new Game();
 		game.setSeizoen(new Periode());
 		game.setSpeeldag(3);
@@ -43,6 +43,9 @@ public class Test {
 		game.setUit(brugge);
 		game.addDoelpunt(new Doelpunt(dirar, dirar, 43, DoelpuntManier.VOLLEY, game));
 		game.addDoelpunt(new Doelpunt(bous,dirar,57,DoelpuntManier.VRIJETRAP, game));
+		
+		System.out.println(dirar);
+		System.out.println(bous);
 		em.persist(game);
 		tx.commit();
 		em.close();

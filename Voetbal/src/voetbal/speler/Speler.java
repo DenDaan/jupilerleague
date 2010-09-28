@@ -2,30 +2,36 @@ package voetbal.speler;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.Map.Entry;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 import voetbal.Periode;
 import voetbal.PeriodeBijPloeg;
 import voetbal.Ploeg;
 import voetbal.doelpunt.Doelpunt;
 import voetbal.kaart.Kaart;
+import voetbal.speler.util.GoodDate;
 import voetbal.speler.util.Positie;
 import voetbal.speler.util.Voet;
-
-import datum.Datum;
 import datum.DatumException;
-import javax.persistence.*;
-
-import org.hibernate.annotations.Sort;
-import org.hibernate.annotations.SortType;
 
 @Entity
 @Table(name="PLAYERS")
@@ -43,12 +49,12 @@ public class Speler implements Serializable{
 	private final String familienaam;
 	
 	@Column(name="NATIONS")
-	private ArrayList<String> nationaliteiten;
+	private List<String> nationaliteiten;
 	
 	@Column(name="BIRTHDAY")
-	private final GregorianCalendar geboortejaar;
+	private final Date geboortedatum;
 	
-	private ArrayList<Positie> posities = new ArrayList<Positie>();
+	private List<Positie> posities = new ArrayList<Positie>();
 	
 	@Enumerated
 	@Column(name="PREFERRED_FOOT")
@@ -70,36 +76,36 @@ public class Speler implements Serializable{
 	private boolean geschorst = false;
 
 	public Speler(String voornaam, String familienaam,
-			ArrayList<String> nationaliteiten, GregorianCalendar geboortejaar,
-			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
+			List<String> nationaliteiten, Date geboortedatum,
+			List<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.nationaliteiten = nationaliteiten;
-		this.geboortejaar = geboortejaar;
+		this.geboortedatum = geboortedatum;
 		this.posities = posities;
 		this.goedeVoet = goedeVoet;
 		setPloeg(ploeg);
 	}
 	
 	public Speler(String voornaam, String familienaam,
-			ArrayList<String> nationaliteiten, GregorianCalendar geboortejaar,
-			ArrayList<Positie> posities, Voet goedeVoet, Ploeg ploeg, Periode periode) {
+			List<String> nationaliteiten, Date geboortedatum,
+			List<Positie> posities, Voet goedeVoet, Ploeg ploeg, Periode periode) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		this.nationaliteiten = nationaliteiten;
-		this.geboortejaar = geboortejaar;
+		this.geboortedatum = geboortedatum;
 		this.posities = posities;
 		this.goedeVoet = goedeVoet;
 		setPloeg(periode,ploeg);
 	}
 	
 	public Speler(String voornaam, String familienaam,
-			String nationaliteit, GregorianCalendar geboortejaar,
+			String nationaliteit, Date geboortedatum,
 			Positie positie, Voet goedeVoet, Ploeg ploeg, Periode periode) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
 		addNationaliteit(nationaliteit);
-		this.geboortejaar = geboortejaar;
+		this.geboortedatum = geboortedatum;
 		addPositie(positie);
 		this.goedeVoet = goedeVoet;
 		setPloeg(periode,ploeg);
@@ -137,7 +143,7 @@ public class Speler implements Serializable{
 		return voornaam + " " + familienaam;
 	}
 
-	public ArrayList<String> getNationaliteit() {
+	public List<String> getNationaliteit() {
 		return nationaliteiten;
 	}
 	
@@ -145,8 +151,20 @@ public class Speler implements Serializable{
 		nationaliteiten.add(nation);//TODO: nationaliteit toegvoegen
 	}
 	
-	public Calendar getGeboortejaar(){
-		return geboortejaar;
+	public Calendar getGeboortedatum(){
+		return GoodDate.getCalendar(geboortedatum);
+	}
+	
+	public int getDay(){
+		return GoodDate.getDay(geboortedatum);
+	}
+	
+	public int getMonth(){
+		return GoodDate.getMonth(geboortedatum);
+	}
+	
+	public int getYear(){
+		return GoodDate.getYear(geboortedatum);
 	}
 
 	public boolean isGeschorst() {
@@ -157,7 +175,7 @@ public class Speler implements Serializable{
 		this.geschorst = geschorst;
 	}
 
-	public ArrayList<Positie> getPosities() {
+	public List<Positie> getPosities() {
 		return posities;
 	}
 	
@@ -186,17 +204,13 @@ public class Speler implements Serializable{
 	}
 
 	public int getLeeftijd() {
-		//TODO
-//		int result = geboortejaar.getJaar();
-//		if (geboortejaar.getMaand() > Datum.now().getMaand()) {
-//			return (result - 1);
-//		}
-//		if (geboortejaar.getMaand() == Datum.now().getMaand()
-//				&& geboortejaar.getDag() > Datum.now().getDag()) {
-//			return (result - 1);
-//		}
-//		return result;
-		return -1;
+		int leeftijd = -1;
+		Date now = new Date();
+		leeftijd = getYear()-GoodDate.getYear(now);
+		if(getMonth()>GoodDate.getMonth(now) || getMonth()==GoodDate.getMonth(now) && getDay()>GoodDate.getDay(now)){
+			leeftijd--;			
+		}		
+		return leeftijd;
 	}
 
 	public Ploeg getPloeg() {
@@ -284,5 +298,30 @@ public class Speler implements Serializable{
 		doelpunten.clear();
 		assists.clear();
 	}
+
+	@Override
+	public String toString() {
+		return "Speler [id="
+				+ id
+				+ ", "
+				+ (voornaam != null ? "voornaam=" + voornaam + ", " : "")
+				+ (familienaam != null ? "familienaam=" + familienaam + ", "
+						: "")
+				+ (nationaliteiten != null ? "nationaliteiten="
+						+ nationaliteiten + ", " : "")
+				+ (geboortedatum != null ? "geboortedatum=" + geboortedatum
+						+ ", " : "")
+				+ (posities != null ? "posities=" + posities + ", " : "")
+				+ (goedeVoet != null ? "goedeVoet=" + goedeVoet + ", " : "")
+				+ (ploegen != null ? "ploegen=" + ploegen + ", " : "")
+				+ (doelpunten != null ? "doelpunten=" + doelpunten + ", " : "")
+				+ (assists != null ? "assists=" + assists + ", " : "")
+				+ (kaarten != null ? "kaarten=" + kaarten + ", " : "")
+				+ "geschorst=" + geschorst + "]";
+	}
+	
+	
+	
+	
 
 }
