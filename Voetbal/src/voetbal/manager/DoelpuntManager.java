@@ -7,7 +7,7 @@ import voetbal.doelpunt.Doelpunt;
 import voetbal.doelpunt.util.DoelpuntManier;
 import voetbal.speler.Speler;
 
-public class DoelpuntManager {
+public class DoelpuntManager implements Manager<Doelpunt>{
 
 	private static final DoelpuntManager instance = new DoelpuntManager();
 	
@@ -19,18 +19,26 @@ public class DoelpuntManager {
 	
 	private static List<Doelpunt> doelpunten;
 	
-	
-	public static void addDoelpunt(Game match, Speler scorer, Speler assister, int minuut,DoelpuntManier doelpuntManier){
-		Doelpunt temp = new Doelpunt(scorer,assister,minuut,match,doelpuntManier);
-		scorer.addDoelpunt(temp);
-		assister.addAssist(temp);
-		doelpunten.add(temp);
-	}
-	
-	public static void addDoelpunt(Doelpunt doelpunt){
+	public void add(Doelpunt doelpunt){
 		doelpunt.getSpelerPunt().addDoelpunt(doelpunt);
 		doelpunt.getSpelerAssist().addAssist(doelpunt);
 		doelpunten.add(doelpunt);
+	}
+
+	@Override
+	public List<Doelpunt> getAll() {
+		return doelpunten;
+	}
+	@Override
+	public void set(List<Doelpunt> doelpunten) {
+		this.doelpunten = doelpunten;
+		
+	}
+
+	@Override
+	public void remove(Doelpunt doelpunt) {
+		// TODO Alle verwijzingen moeten ook verwijderd worden!!!
+		doelpunten.remove(doelpunt);
 	}
 	
 }

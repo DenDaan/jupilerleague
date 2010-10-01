@@ -1,15 +1,7 @@
 package voetbal.speler;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.MapKey;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -63,7 +56,8 @@ public class Speler implements Serializable{
 	@OneToMany(mappedBy="ploeg")
 	@Sort(type = SortType.NATURAL) 
 	private SortedSet<PeriodeBijPloeg> ploegen = new TreeSet<PeriodeBijPloeg>();
-	//private TreeMap<Periode, Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
+//	@Column(name="TEAMS")
+//	private Map<Periode,Ploeg> ploegen = new TreeMap<Periode,Ploeg>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Doelpunt> doelpunten = new ArrayList<Doelpunt>();

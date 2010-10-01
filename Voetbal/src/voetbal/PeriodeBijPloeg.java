@@ -11,11 +11,11 @@ public class PeriodeBijPloeg implements Comparable<PeriodeBijPloeg>{
 	@GeneratedValue
 	private int id;
 	
-	@Column(name="PERIODE")
+	@JoinColumn(name="PERIODE")
 	private Periode periode;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="speler")
+	@JoinColumn(name="SPELER")
 	private Ploeg ploeg;
 	
 	

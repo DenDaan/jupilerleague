@@ -16,13 +16,15 @@ import voetbal.speler.util.GoodDate;
 import voetbal.speler.util.Positie;
 import voetbal.speler.util.Voet;
 
-public class Test {
+public class TestZonderSpring {
 
 	/**
 	 * @param args
 	 * @throws DatumException 
 	 */
 	public static void main(String[] args) throws DatumException {
+		
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("course");
 		EntityManager em=emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();

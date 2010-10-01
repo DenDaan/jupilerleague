@@ -69,8 +69,8 @@ public class Periode implements Serializable{
 	 * Een periode is geldig als: \n
 	 * 1) het tweede moment later is dan het eerste \n
 	 * 2) beide momenten niet na het moment van de creatie van de periode liggen
-	 * @param begin2 het beginmoment van de periode, in de vorm van een Datum-object
-	 * @param einde2 het eindmoment van de periode, in de vorm van een Datum-object
+	 * @param begin2 het beginmoment van de periode, in de vorm van een Date-object
+	 * @param einde2 het eindmoment van de periode, in de vorm van een Date-object
 	 * @return true als de opgegeven periode een geldige periode is. Anders wordt false teruggegeven.
 	 */
 	private boolean geldigePeriode(Date begin, Date einde) {
