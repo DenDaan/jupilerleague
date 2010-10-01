@@ -25,6 +25,14 @@ public class PeriodeBijPloeg implements Comparable<PeriodeBijPloeg>{
 		this.ploeg = ploeg;
 	}
 
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id=id;
+	}
+	
 	public Periode getPeriode() {
 		return periode;
 	}

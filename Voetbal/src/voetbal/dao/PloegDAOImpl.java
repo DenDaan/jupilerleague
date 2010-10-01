@@ -1,7 +1,6 @@
 package voetbal.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -24,6 +23,7 @@ public class PloegDAOImpl implements PloegDAO{
 		this.entityManager = entityManager;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Ploeg> getPloegen() {

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import voetbal.Game;
-import voetbal.Ploeg;
 
 @Controller
 public class GameDAOImpl implements GameDAO {
@@ -22,6 +21,7 @@ public class GameDAOImpl implements GameDAO {
 		this.entityManager = entityManager;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Game> getGames() {
 		return entityManager.createQuery(getGamesQuery).getResultList();
 	}

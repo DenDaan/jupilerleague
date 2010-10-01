@@ -2,16 +2,18 @@ package voetbal;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Calendar;
 
 import datum.*;
 import javax.persistence.*;
 
-import voetbal.speler.util.GoodDate;
-
 @Entity
 @Table(name="PERIODS")
 public class Periode implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue

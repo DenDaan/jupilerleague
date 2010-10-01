@@ -2,10 +2,7 @@ package voetbal.manager;
 
 import java.util.List;
 
-import voetbal.Game;
-import voetbal.doelpunt.Doelpunt;
-import voetbal.doelpunt.util.DoelpuntManier;
-import voetbal.speler.Speler;
+import voetbal.doelpunt.*;
 
 public class DoelpuntManager implements Manager<Doelpunt>{
 
@@ -16,8 +13,9 @@ public class DoelpuntManager implements Manager<Doelpunt>{
 	}
 	
 	private DoelpuntManager(){}
+	//TODO: nog service injecteren
 	
-	private static List<Doelpunt> doelpunten;
+	private List<Doelpunt> doelpunten;
 	
 	public void add(Doelpunt doelpunt){
 		doelpunt.getSpelerPunt().addDoelpunt(doelpunt);

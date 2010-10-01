@@ -11,6 +11,11 @@ import java.util.*;
 @Table(name="GAMES")
 public class Game implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
 	@Column(name="GAME_ID")

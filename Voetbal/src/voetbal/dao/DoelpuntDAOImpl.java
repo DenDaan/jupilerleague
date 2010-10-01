@@ -16,6 +16,7 @@ public class DoelpuntDAOImpl {
 		this.entityManager = entityManager;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Doelpunt> getDoelpunten(){
 		return entityManager.createQuery(getDoelpuntenQuery).getResultList();
 	}

@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.MapKey;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -30,6 +29,11 @@ import datum.DatumException;
 @Table(name="PLAYERS")
 public class Speler implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="PLAYER_ID")
@@ -249,6 +253,7 @@ public class Speler implements Serializable{
 		return ploegen;
 	}
 
+	@SuppressWarnings("null")
 	public SortedSet<Ploeg> getPloegen() {
 		SortedSet<Ploeg> result=null;
 		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
@@ -258,6 +263,7 @@ public class Speler implements Serializable{
 		return result;
 	}
 
+	@SuppressWarnings("null")
 	public SortedSet<Periode> getPeriodes() {
 		SortedSet<Periode> result=null;
 		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
@@ -267,6 +273,7 @@ public class Speler implements Serializable{
 		return result;
 	}
 
+	@SuppressWarnings("null")
 	public SortedSet<Periode> periodeBijPloeg(Ploeg ploeg) {
 		Iterator<PeriodeBijPloeg> it = ploegen.iterator();
 		SortedSet<Periode> result = null;

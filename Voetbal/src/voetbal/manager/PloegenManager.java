@@ -1,7 +1,5 @@
 package voetbal.manager;
 
-import java.util.ArrayList;
-import voetbal.dao.*;
 import java.util.Iterator;
 import java.util.List;
 

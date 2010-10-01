@@ -17,6 +17,11 @@ import javax.persistence.*;
 @Table(name="TEAMS")
 public class Ploeg implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="TEAM_ID")

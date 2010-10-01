@@ -12,6 +12,11 @@ import voetbal.speler.Speler;
 @Table(name="GOALS")
 public class Doelpunt implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="GOAL_ID")
