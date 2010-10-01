@@ -3,19 +3,18 @@ package voetbal.manager;
 import java.util.List;
 
 import voetbal.doelpunt.*;
+import voetbal.services.DoelpuntService;
 
 public class DoelpuntManager implements Manager<Doelpunt>{
 
-	private static final DoelpuntManager instance = new DoelpuntManager();
+	DoelpuntService doelpuntService;
 	
-	public static DoelpuntManager getInstance(){
-		return instance;
+	private List<Doelpunt> doelpunten = doelpuntService.getDoelpunten();
+	
+	public DoelpuntManager(DoelpuntService doelpuntService){
+	this.doelpuntService = doelpuntService;
 	}
 	
-	private DoelpuntManager(){}
-	//TODO: nog service injecteren
-	
-	private List<Doelpunt> doelpunten;
 	
 	public void add(Doelpunt doelpunt){
 		doelpunt.getSpelerPunt().addDoelpunt(doelpunt);

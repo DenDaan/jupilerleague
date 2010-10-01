@@ -9,14 +9,8 @@ import voetbal.speler.Speler;
 
 public class PloegenManager implements Manager<Ploeg> {
 
-	// private static final PloegenManager instance = new PloegenManager();
-
 	PloegService ploegService;
 
-	// public static PloegenManager getInstance(){
-	// return instance;
-	// }
-	//
 	private List<Ploeg> ploegen = ploegService.getPloegen();
 
 	public PloegenManager(PloegService ploegService) {

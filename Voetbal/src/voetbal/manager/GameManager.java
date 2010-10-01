@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import voetbal.Game;
+import voetbal.services.GameService;
 
 public class GameManager implements Manager<Game>{
+	
+	GameService gameService;
+	
+	private List<Game> games = gameService.getGames();
 
-	private static final GameManager instance = new GameManager();
-	
-	public GameManager getInstance(){
-		return instance;
+	private GameManager(GameService gameService){
+		this.gameService = gameService;
 	}
-	
-	private GameManager(){}
-	
-	private List<Game> games = new ArrayList<Game>();
 	
 	
 	
