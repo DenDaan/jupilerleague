@@ -1,6 +1,9 @@
 package voetbal.speler.util;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name="Positions")
 public enum Positie {
 	// TODO: verschillende posities opgeven
 	//Doelman
@@ -30,12 +33,23 @@ public enum Positie {
 		LA(BreedtePositie.LINKS, DieptePositie.AANVALLER),
 	//Spits
 		SP(BreedtePositie.CENTRAAL, DieptePositie.SPITS);
+		
+	@Id
+	@GeneratedValue
+	private int id;
 	
+	@Column(name="Width")
 	private BreedtePositie brpos;
+	
+	@Column(name="Depth")
 	private DieptePositie dpos;
 	Positie(BreedtePositie brpos, DieptePositie dpos){
 		this.dpos=dpos;
 		this.brpos=brpos;
+	}
+	
+	public int getId(){
+		return id;
 	}
 	
 	public BreedtePositie getBreedtePositie(){

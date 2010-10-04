@@ -4,14 +4,19 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import voetbal.doelpunt.Doelpunt;
 
-public class DoelpuntDAOImpl {
+@Repository
+public class DoelpuntDAOImpl implements DoelpuntDAO {
 
 	String getDoelpuntenQuery = "from Doelpunt";
 
 	private EntityManager entityManager;
 	
+	@Autowired
 	public DoelpuntDAOImpl(EntityManager entityManager){
 		this.entityManager = entityManager;
 	}

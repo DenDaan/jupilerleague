@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name="GAMES")
+@Table(name="Games")
 public class Game implements Serializable {
 	
 	/**
@@ -18,25 +18,26 @@ public class Game implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="GAME_ID")
+	@Column(name="Id")
 	private int id;
 	
-	@Column(name="MATCHDAY")
+	@Column(name="MatchDay")
 	private int speeldag;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	//@Column(name="SEASON")
-	private Periode seizoen;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Season")
+	private Seizoen seizoen;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	//@Column(name="HOME_TEAM")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Home")
 	private Ploeg thuis;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	//@Column(name="AWAY_TEAM")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Away")
 	private Ploeg uit;
 	
-	@OneToMany(mappedBy="game", cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.PERSIST)
+	@Column(name="Goals")
 	private Set<Doelpunt> doelpunten = new HashSet<Doelpunt>();
 
 	public Game(){}
@@ -57,11 +58,11 @@ public class Game implements Serializable {
 		this.speeldag = speeldag;
 	}
 
-	public Periode getSeizoen() {
+	public Seizoen getSeizoen() {
 		return seizoen;
 	}
 
-	public void setSeizoen(Periode seizoen) {
+	public void setSeizoen(Seizoen seizoen) {
 		this.seizoen = seizoen;
 	}
 

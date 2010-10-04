@@ -3,15 +3,9 @@ package voetbal.speler;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -21,12 +15,13 @@ import voetbal.Ploeg;
 import voetbal.doelpunt.Doelpunt;
 import voetbal.kaart.Kaart;
 import voetbal.speler.util.GoodDate;
+import voetbal.speler.util.Nation;
 import voetbal.speler.util.Positie;
 import voetbal.speler.util.Voet;
 import datum.DatumException;
 
 @Entity
-@Table(name="PLAYERS")
+@Table(name="Players")
 public class Speler implements Serializable{
 	
 	/**
@@ -36,25 +31,29 @@ public class Speler implements Serializable{
 
 	@Id
 	@GeneratedValue
-	@Column(name="PLAYER_ID")
+	@Column(name="Id")
 	private int id;
 
-	@Column(name="GIVEN_NAME")
+	@Column(name="GivenName")
 	private final String voornaam;
 	
-	@Column(name="NAME")
+	@Column(name="Name")
 	private final String familienaam;
 	
-	@Column(name="NATIONS")
-	private List<String> nationaliteiten;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@Column(name="Nations")
+	private List<Nation> nationaliteiten = new ArrayList<Nation>();
 	
-	@Column(name="BIRTHDAY")
+	@Column(name="Birthday")
 	private final Date geboortedatum;
 	
+	@CollectionOfElements(targetElement=Positie.class)
+	@Enumerated(EnumType.STRING)
+	@Column (name="Positions")
 	private List<Positie> posities = new ArrayList<Positie>();
 	
 	@Enumerated
-	@Column(name="PREFERRED_FOOT")
+	@Column(name="PreferredFoot")
 	private Voet goedeVoet;
 
 	@OneToMany(mappedBy="ploeg")
@@ -74,7 +73,7 @@ public class Speler implements Serializable{
 	private boolean geschorst = false;
 
 	public Speler(String voornaam, String familienaam,
-			List<String> nationaliteiten, Date geboortedatum,
+			List<Nation> nationaliteiten, Date geboortedatum,
 			List<Positie> posities, Voet goedeVoet, Ploeg ploeg) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
@@ -86,19 +85,19 @@ public class Speler implements Serializable{
 	}
 	
 	public Speler(String voornaam, String familienaam,
-			List<String> nationaliteiten, Date geboortedatum,
+			List<Nation> nationaliteiten, Date geboortedatum,
 			List<Positie> posities, Voet goedeVoet, Ploeg ploeg, Periode periode) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
-		this.nationaliteiten = nationaliteiten;
+		addNationaliteiten(nationaliteiten);
 		this.geboortedatum = geboortedatum;
 		this.posities = posities;
 		this.goedeVoet = goedeVoet;
 		setPloeg(periode,ploeg);
 	}
-	
+
 	public Speler(String voornaam, String familienaam,
-			String nationaliteit, Date geboortedatum,
+			Nation nationaliteit, Date geboortedatum,
 			Positie positie, Voet goedeVoet, Ploeg ploeg, Periode periode) {
 		this.voornaam = voornaam;
 		this.familienaam = familienaam;
@@ -107,6 +106,10 @@ public class Speler implements Serializable{
 		addPositie(positie);
 		this.goedeVoet = goedeVoet;
 		setPloeg(periode,ploeg);
+	}
+	
+	private void addNationaliteiten(List<Nation> newNations) {
+		nationaliteiten.addAll(newNations);
 	}
 	
 	public void setId(int id) {
@@ -141,11 +144,11 @@ public class Speler implements Serializable{
 		return voornaam + " " + familienaam;
 	}
 
-	public List<String> getNationaliteit() {
+	public List<Nation> getNationaliteiten() {
 		return nationaliteiten;
 	}
 	
-	public void addNationaliteit(String nation){
+	public void addNationaliteit(Nation nation){
 		nationaliteiten.add(nation);//TODO: nationaliteit toegvoegen
 	}
 	

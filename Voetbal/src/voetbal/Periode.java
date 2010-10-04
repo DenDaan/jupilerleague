@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="PERIODS")
-public class Periode implements Serializable{
+public class Periode implements PeriodeInterface, Serializable{
 
 	/**
 	 * 
@@ -55,7 +55,6 @@ public class Periode implements Serializable{
 		} else {
 			throw new IllegalArgumentException("Ongeldige periode. De begin- en/of einddatum is ongeldig.");
 		}
-		;
 	}
 	
 	public void setId(int id) {

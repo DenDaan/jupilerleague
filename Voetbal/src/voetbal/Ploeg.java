@@ -14,7 +14,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name="TEAMS")
+@Table(name="Teams")
 public class Ploeg implements Serializable{
 	
 	/**
@@ -24,18 +24,18 @@ public class Ploeg implements Serializable{
 
 	@Id
 	@GeneratedValue
-	@Column(name="TEAM_ID")
+	@Column(name="Id")
 	private int id;
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@Column(name="PLAYERS")
+	@Column(name="Players")
 	private List<Speler> spelers;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@Column(name="EX_PLAYERS")
+	@Column(name="ExPlayers")
 	private List<Speler> exSpelers;
 	
-	@Column(name="NAME")
+	@Column(name="Name")
 	private String naam;
 
 	public static final Ploeg VRIJ = new Ploeg();

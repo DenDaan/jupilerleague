@@ -6,10 +6,11 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import voetbal.Game;
 
-@Controller
+@Repository
 public class GameDAOImpl implements GameDAO {
 
 	private EntityManager entityManager;

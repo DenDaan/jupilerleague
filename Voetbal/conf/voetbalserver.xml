@@ -12,11 +12,11 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd 
 	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd" 
-	default-init-method="init" default-destroy-method="destroy">
+	default-init-method="init" default-destroy-method="destroy"><!--
 	<import resource="classpath:META-INF/cxf/cxf.xml"/>
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-	<context:annotation-config/>
+	--><context:annotation-config/>
 	<context:component-scan base-package="voetbal"/>
 	<bean id ="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="voetbal"/>
@@ -44,7 +44,7 @@
 	<bean id="DoelpuntService" class="voetbal.services.DoelpuntServiceImpl">
 		<property name="doelpuntDAO" ref="DoelpuntDAO"/>
 	</bean>
-	<bean id="DoelpuntenManager" class="voetbal.manager.DoelpuntenManager">
+	<bean id="DoelpuntenManager" class="voetbal.manager.DoelpuntManager">
 		<property name="doelpuntService" ref="DoelpuntService"/>
 	</bean>
 	
@@ -58,13 +58,23 @@
 		<property name="gameService" ref="GameService"/>
 	</bean>
 	<tx:annotation-driven transaction-manager="tm"/>
-	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	<!--<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="service" ref="PloegService"/>
 		<property name="serviceName" value="PloegService"/>
 		<property name="serviceInterface" value="voetbal.PloegService"/>
 	</bean>
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="DoelpuntService"/>
+		<property name="serviceName" value="DoelpuntService"/>
+		<property name="serviceInterface" value="voetbal.DoelpuntService"/>
+	</bean>
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="GameService"/>
+		<property name="serviceName" value="GameService"/>
+		<property name="serviceInterface" value="voetbal.GameService"/>
+	</bean>
 	
-	<!--<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+	--><!--<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616"/>
 	<property name="brokerURL" value="tcp://javaprofs.be:1616"/>
 	</bean>

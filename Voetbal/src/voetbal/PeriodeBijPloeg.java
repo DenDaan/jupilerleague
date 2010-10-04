@@ -4,18 +4,18 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="PERIODS_TEAMS")
+@Table(name="Periods-Teams")
 public class PeriodeBijPloeg implements Comparable<PeriodeBijPloeg>{
 
 	@Id
 	@GeneratedValue
 	private int id;
 	
-	@JoinColumn(name="PERIODE")
+	@JoinColumn(name="Period")
 	private Periode periode;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="SPELER")
+	@JoinColumn(name="Player")
 	private Ploeg ploeg;
 	
 	
