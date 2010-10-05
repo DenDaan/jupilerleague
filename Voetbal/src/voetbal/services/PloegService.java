@@ -9,4 +9,6 @@ public interface PloegService {
 
 	//TODO
 	public List<Ploeg> getPloegen();
+
+	public void add(Ploeg ploeg);
 }

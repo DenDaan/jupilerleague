@@ -22,4 +22,11 @@ public class DoelpuntServiceImpl implements DoelpuntService{
 		return doelpuntDAO.getDoelpunten();
 	}
 
+	public void setDoelpuntDAO(DoelpuntDAO doelpuntDAO){
+		this.doelpuntDAO=doelpuntDAO;
+	}
+	
+	public DoelpuntDAO getDoelpuntDAO(){
+		return doelpuntDAO;
+	}
 }

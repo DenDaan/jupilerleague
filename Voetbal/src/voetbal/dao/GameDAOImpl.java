@@ -26,4 +26,12 @@ public class GameDAOImpl implements GameDAO {
 	public List<Game> getGames() {
 		return entityManager.createQuery(getGamesQuery).getResultList();
 	}
+	
+	public void setEntityManager(EntityManager entityManager){
+		this.entityManager = entityManager;
+	}
+	
+	public EntityManager getEntityManager(){
+		return entityManager;
+	}
 }

@@ -50,6 +50,7 @@ public class Speler implements Serializable{
 	@CollectionOfElements(targetElement=Positie.class)
 	@Enumerated(EnumType.STRING)
 	@Column (name="Positions")
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Positie> posities = new ArrayList<Positie>();
 	
 	@Enumerated
@@ -109,6 +110,7 @@ public class Speler implements Serializable{
 	}
 	
 	private void addNationaliteiten(List<Nation> newNations) {
+		if(newNations != null)
 		nationaliteiten.addAll(newNations);
 	}
 	

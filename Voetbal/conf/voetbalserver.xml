@@ -17,7 +17,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 	--><context:annotation-config/>
-	<context:component-scan base-package="voetbal"/>
+	<!--<context:component-scan base-package="voetbal"/>-->
 	<bean id ="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="voetbal"/>
 	</bean>
@@ -44,7 +44,7 @@
 	<bean id="DoelpuntService" class="voetbal.services.DoelpuntServiceImpl">
 		<property name="doelpuntDAO" ref="DoelpuntDAO"/>
 	</bean>
-	<bean id="DoelpuntenManager" class="voetbal.manager.DoelpuntManager">
+	<bean id="DoelpuntManager" class="voetbal.manager.DoelpuntManager">
 		<property name="doelpuntService" ref="DoelpuntService"/>
 	</bean>
 	

@@ -7,4 +7,6 @@ public interface PloegDAO {
 	
 	public List<Ploeg> getPloegen();
 
+	public void add(Ploeg ploeg);
+
 }
