@@ -9,25 +9,25 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import voetbal.doelpunt.Doelpunt;
+import voetbal.doelpunt.Goal;
 
 @Repository
-public class DoelpuntDAOImpl implements DoelpuntDAO {
+public class GoalDAOImpl implements GoalDAO {
 
 	private EntityManager entityManager;
 	
-	String getDoelpuntenQuery = "from Doelpunt";
-
+//	String getGoalsQuery = "from Doelpunt";
+	String getGoalsQuery = "from Goal";
 	
 	@Autowired
-	public DoelpuntDAOImpl(EntityManager entityManager){
+	public GoalDAOImpl(EntityManager entityManager){
 		this.entityManager = entityManager;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public List<Doelpunt> getDoelpunten(){
-		return entityManager.createQuery(getDoelpuntenQuery).getResultList();
+	public List<Goal> getGoals(){
+		return entityManager.createQuery(getGoalsQuery).getResultList();
 	}
 	
 	public void setEntityManager(EntityManager entityManager){
