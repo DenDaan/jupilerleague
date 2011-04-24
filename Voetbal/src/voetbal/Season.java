@@ -23,17 +23,17 @@ public class Season implements PeriodInterface {
 	private int id;
 	
 	@Column(name="Start")
-	private int jaar;
+	private int year;
 	
 	@OneToMany(mappedBy="seizoen", cascade=CascadeType.ALL)
 	private List<Game> games;
 	
-	public Season(int jaar){
-		if(geldigSeizoen(jaar)){
-			this.jaar=jaar;
+	public Season(int year){
+		if(validSeason(year)){
+			this.year=year;
 		}
 		 else {
-				throw new IllegalArgumentException("Ongeldig Seizoen. De begin- en/of einddatum is ongeldig.");
+				throw new IllegalArgumentException("Illegal season. The begin or end date is incorrect.");
 			}
 	}
 	
@@ -46,11 +46,11 @@ public class Season implements PeriodInterface {
 	}
 	
 	public Date getBegin() throws DatumException {
-		return GoodDate.createDate(1, 7, jaar);
+		return GoodDate.createDate(1, 7, year);
 	}
 
-	public Date getEinde() throws DatumException {
-		return GoodDate.createDate(30, 6, jaar+1);
+	public Date getEnd() throws DatumException {
+		return GoodDate.createDate(30, 6, year+1);
 	}
 
 	public int compareTo(Period periode) {
@@ -58,7 +58,17 @@ public class Season implements PeriodInterface {
 		return 0;
 	}
 	
-	private boolean geldigSeizoen(int seizoen){
+	public int hashCode(){
+		//TODO: hashcode!
+		return 0;
+	}
+	
+	public boolean equals(Object o){
+		//TODO: equals!
+		return false;
+	}
+	
+	private boolean validSeason(int seizoen){
 	//TODO: jaar mag niet te groot of te klein zijn!!!
 		return true;
 	}

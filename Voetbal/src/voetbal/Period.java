@@ -23,7 +23,7 @@ public class Period implements PeriodInterface, Serializable{
 	private Date begin;
 	
 	@Temporal(TemporalType.DATE)
-	private Date einde;
+	private Date end;
 	
 	/**
 	 * Creëert een periode die op het moment van de creatie begint en nog niet voorbij is.
@@ -48,12 +48,12 @@ public class Period implements PeriodInterface, Serializable{
 	 * @param einde Eindmoment van de periode, in de vorm van een Datum-object
 	 * @throws DatumException
 	 */
-	public Period(Date begin, Date einde) throws DatumException {
-		if (geldigePeriode(begin, einde)) {
+	public Period(Date begin, Date end) throws DatumException {
+		if (validPeriod(begin, end)) {
 			this.begin = begin;
-			this.einde = einde;
+			this.end = end;
 		} else {
-			throw new IllegalArgumentException("Ongeldige periode. De begin- en/of einddatum is ongeldig.");
+			throw new IllegalArgumentException("Illegal period. The start and/or end date aren't correct.");
 		}
 	}
 	
@@ -74,28 +74,37 @@ public class Period implements PeriodInterface, Serializable{
 	 * @param einde2 het eindmoment van de periode, in de vorm van een Date-object
 	 * @return true als de opgegeven periode een geldige periode is. Anders wordt false teruggegeven.
 	 */
-	private boolean geldigePeriode(Date begin, Date einde) {
+	private boolean validPeriod(Date begin, Date end) {
 		Date now = new Date();
-		if(einde==null){
+		if(end==null){
 			if(!begin.after(now))
 				return true;
 			return false;
 		}
-		return (einde.after(begin) && !begin.after(now)
-				&& !einde.after(now) ? true : false);
+		return (end.after(begin) && !begin.after(now)
+				&& !end.after(now) ? true : false);
 	}
 	
 	public Date getBegin(){
 		return begin;
 	}
 	
-	public Date getEinde(){
-		if(einde==null)
+	public Date getEnd(){
+		if(end==null)
 			return new Date();
-		return einde;
+		return end;
 	}
-
-	public int compareTo(Period periode) {
+	
+	//TODO: hashcodes! equals!
+	public int hashCode(){
+		return 0;
+	}
+	
+	public boolean equals(Object o){
+		return false;
+	}
+	
+	public int compareTo(Period period) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -8,7 +8,7 @@ public interface PeriodInterface {
 
 	public Date getBegin() throws DatumException;
 	
-	public Date getEinde() throws DatumException;
+	public Date getEnd() throws DatumException;
 
 	public int compareTo(Period periode);
 	
