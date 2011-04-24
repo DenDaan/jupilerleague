@@ -10,38 +10,40 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import voetbal.Ploeg;
+import voetbal.Team;
 
 @Repository
-public class PloegDAOImpl implements PloegDAO{
+public class TeamDAOImpl implements TeamDAO{
 	
-	public String ploegenQuery = "from Ploeg";
+//	public String ploegenQuery = "from Ploeg";
+	public String teamsQuery = "from Team";
 	
 	EntityManager entityManager;
 	
-	private final String getPloegQuery = "from Ploeg where naam=?";
+//	private final String getPloegQuery = "from Ploeg where naam=?";
+	private final String getTeamQuery = "from team where name=?";
 	
 	@Autowired
-	public PloegDAOImpl(EntityManager entityManager){
+	public TeamDAOImpl(EntityManager entityManager){
 		this.entityManager = entityManager;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public List<Ploeg> getPloegen() {
-		return (List<Ploeg>) entityManager.createQuery(ploegenQuery).getResultList();
+	public List<Team> getTeams() {
+		return (List<Team>) entityManager.createQuery(teamsQuery).getResultList();
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public Ploeg getPloeg(String ploeg){
-		Query query = entityManager.createQuery(getPloegQuery);
-		query.setParameter(0, ploeg);
-		return (Ploeg) query.getSingleResult();
+	public Team getTeam(String team){
+		Query query = entityManager.createQuery(getTeamQuery);
+		query.setParameter(0, team);
+		return (Team) query.getSingleResult();
 	}
 	
-	public Ploeg getPloeg(int id){
-		return entityManager.find(Ploeg.class,id);
+	public Team getTeam(int id){
+		return entityManager.find(Team.class,id);
 	}
 
 	public void setEntityManager(EntityManager entityManager){
@@ -54,7 +56,8 @@ public class PloegDAOImpl implements PloegDAO{
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void add(Ploeg ploeg) {
-		entityManager.createQuery("insert into Ploeg(id, naam) values (ploeg.id, ploeg.naam)");
+	public void add(Team team) {
+//		entityManager.createQuery("insert into Ploeg(id, naam) values (ploeg.id, ploeg.naam)");
+		entityManager.createQuery("insert into Team(id, name) values (team.id, team.name)");
 	}
 }
