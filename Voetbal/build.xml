@@ -1,0 +1,181 @@
+<project name="Hibernate" default="compile" basedir=".">
+
+   <property name="sourcedir" value="src" />
+   <property name="confdir" value="src" />
+   <property name="libdir" value="lib" />
+   <property name="builddir" value="build" />
+   <property name="destdir" value="build/classes" />
+   <property name="jarname" value="Application.jar" />
+
+   <path id="classpath">
+      <fileset dir="${libdir}">
+         <include name="**/*.jar" />
+      </fileset>
+      <fileset dir="${builddir}">
+         <include name="**/*.jar" />
+      </fileset>
+   </path>
+
+   <patternset id="meta.files">
+      <include name="**/*.xml" />
+      <include name="**/*.properties" />
+   </patternset>
+
+   <target name="init">
+      <mkdir dir="${builddir}" />
+      <mkdir dir="${destdir}" />
+   </target>
+
+   <target name="clean" description="Remove generated files">
+      <delete includeEmptyDirs="true" quiet="true">
+         <fileset dir="${build.dir}" includes="**/*.class"/>
+      </delete>
+   </target>
+
+   <target name="compile" depends="init">
+      <javac srcdir="${sourcedir}"
+             destdir="${destdir}"
+             classpathref="classpath" debug="true"/>
+   </target>
+
+   <target name="jar"
+           depends="compile"
+           description="Compiles all source files">
+      <jar destfile="${builddir}\${jarname}" basedir="${destdir}" />
+      <jar destfile="${builddir}\${jarname}"
+           basedir="${confdir}"
+           update="true"
+           includes="**/*.xml" />
+   </target>
+
+   <target name="copymetafiles">
+      <copy todir="${builddir}">
+         <fileset dir="${src.java.dir}">
+            <patternset refid="meta.files" />
+         </fileset>
+      </copy>
+   </target>
+
+   <target name="run.savemessage"
+           depends="jar"
+           description="Build and run SaveMessage">
+      <java fork="true"
+            classname="messages.SaveMessage"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.getmessage"
+           depends="jar"
+           description="Build and run GetMessage">
+      <java fork="true"
+            classname="messages.GetMessage"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.saveperson"
+           depends="jar"
+           description="Build and run SavePerson">
+      <java fork="true"
+            classname="persons.SavePerson"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.getperson"
+           depends="jar"
+           description="Build and run GetPerson">
+      <java fork="true"
+            classname="persons.GetPerson"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.changeperson"
+           depends="jar"
+           description="Build and run ChangePerson">
+      <java fork="true"
+            classname="persons.ChangePerson"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.testperson"
+           depends="jar"
+           description="Build and run TestPerson">
+      <java fork="true"
+            classname="persons.TestPerson"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.conversation"
+           depends="jar"
+           description="Build and run Conversation">
+      <java fork="true"
+            classname="persons.Conversation"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.deleteperson"
+           depends="jar"
+           description="Build and run DeletePerson">
+      <java fork="true"
+            classname="persons.DeletePerson"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.getbeer"
+           depends="jar"
+           description="Build and run GetBeer">
+      <java fork="true"
+            classname="beers.GetBeer"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.savemammal"
+           depends="jar"
+           description="Build and run SaveMammal">
+      <java fork="true"
+            classname="inheritance.SaveMammal"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.getmammal"
+           depends="jar"
+           description="Build and run SaveMammal">
+      <java fork="true"
+            classname="inheritance.GetMammal"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.findpersons"
+           depends="jar"
+           description="Build and run FindPersons">
+      <java fork="true"
+            classname="persons.FindPersons"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.findbeers"
+           depends="jar"
+           description="Build and run FindBeers">
+      <java fork="true"
+            classname="beers.FindBeers"
+            classpathref="classpath" />
+   </target>
+
+   <target name="run.updatebeers"
+           depends="jar"
+           description="Build and run UpdateBeers">
+      <java fork="true"
+            classname="beers.UpdateBeers"
+            classpathref="classpath" />
+   </target>
+
+   <target name="recreate.database" description="Drop all tables">
+      <sql driver="com.mysql.jdbc.Driver"
+           url="jdbc:mysql://noel-vaes.be:3306/CursistDB"
+           userid="cursist"
+           password="cursist123"
+           classpathref="classpath">
+         DROP DATABASE CursistDB;
+         CREATE DATABASE CursistDB;
+      </sql>
+   </target>
+</project>

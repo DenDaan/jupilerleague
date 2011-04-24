@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd 
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd" 
+	default-init-method="init" default-destroy-method="destroy"><!--
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+	--><context:annotation-config/>
+	<!--<context:component-scan base-package="voetbal"/>-->
+	<bean id ="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="voetbal"/>
+	</bean>
+	<bean id="tm" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf"/>
+	</bean>
+	<bean id="em" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		<property name="entityManagerFactory" ref="emf"/>
+	</bean>
+	
+	<bean id="PloegDAO" class="voetbal.dao.PloegDAOImpl">
+		<property name="entityManager" ref="em"/>
+	</bean>
+	<bean id="PloegService" class="voetbal.services.PloegServiceImpl">
+		<property name="ploegDAO" ref="PloegDAO"/>
+	</bean>
+	<bean id="PloegenManager" class="voetbal.manager.PloegenManager">
+		<property name="ploegService" ref="PloegService"/>
+	</bean>
+	
+	<bean id="DoelpuntDAO" class="voetbal.dao.DoelpuntDAOImpl">
+		<property name="entityManager" ref="em"/>
+	</bean>
+	<bean id="DoelpuntService" class="voetbal.services.DoelpuntServiceImpl">
+		<property name="doelpuntDAO" ref="DoelpuntDAO"/>
+	</bean>
+	<bean id="DoelpuntManager" class="voetbal.manager.DoelpuntManager">
+		<property name="doelpuntService" ref="DoelpuntService"/>
+	</bean>
+	
+	<bean id="GameDAO" class="voetbal.dao.GameDAOImpl">
+		<property name="entityManager" ref="em"/>
+	</bean>
+	<bean id="GameService" class="voetbal.services.GameServiceImpl">
+		<property name="gameDAO" ref="GameDAO"/>
+	</bean>
+	<bean id="GameManager" class="voetbal.manager.GameManager">
+		<property name="gameService" ref="GameService"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="tm"/>
+	<!--<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="PloegService"/>
+		<property name="serviceName" value="PloegService"/>
+		<property name="serviceInterface" value="voetbal.PloegService"/>
+	</bean>
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="DoelpuntService"/>
+		<property name="serviceName" value="DoelpuntService"/>
+		<property name="serviceInterface" value="voetbal.DoelpuntService"/>
+	</bean>
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="GameService"/>
+		<property name="serviceName" value="GameService"/>
+		<property name="serviceInterface" value="voetbal.GameService"/>
+	</bean>
+	
+	--><!--<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616"/>
+	<property name="brokerURL" value="tcp://javaprofs.be:1616"/>
+	</bean>
+	<bean id="beerQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="BeerQueueDaan"/>
+	</bean>
+	
+	<bean id="beerJmsReceiver" class="be.daan.beers.BeerJmsReceiver">
+		<property name="beerService" ref="beerService"/>
+	</bean>
+	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="destination" ref="beerQueue"/>
+		<property name="messageListener" ref="beerJmsReceiver"/>
+	</bean>
+	
+	--><!--<jaxws:endpoint id="beerEndPoint" implementor="#beerService" address="/BeerService"/>
+--></beans>
