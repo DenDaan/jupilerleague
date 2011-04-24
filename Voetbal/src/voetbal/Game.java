@@ -22,23 +22,21 @@ public class Game implements Serializable {
 	private int id;
 	
 	@Column(name="MatchDay")
-	private int speeldag;
+	private MatchDay matchDay;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="Season")
-	private Seizoen seizoen;
+	//TODO: Add 'played'-boolean OR GameManager
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="Home")
-	private Ploeg thuis;
+	private Team home;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="Away")
-	private Ploeg uit;
+	private Team away;
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	@Column(name="Goals")
-	private Set<Doelpunt> doelpunten = new HashSet<Doelpunt>();
+	private Set<Doelpunt> goals = new HashSet<Doelpunt>();
 
 	public Game(){}
 
@@ -50,48 +48,48 @@ public class Game implements Serializable {
 		this.id = id;
 	}
 
-	public int getSpeeldag() {
-		return speeldag;
+	public MatchDay getSpeeldag() {
+		return matchDay;
 	}
 
-	public void setSpeeldag(int speeldag) {
-		this.speeldag = speeldag;
+	public void setSpeeldag(MatchDay matchDay) {
+		this.matchDay = matchDay;
 	}
 
-	public Seizoen getSeizoen() {
-		return seizoen;
+	public Season getSeizoen() {
+		return matchDay.getSeason();
 	}
 
-	public void setSeizoen(Seizoen seizoen) {
-		this.seizoen = seizoen;
+	public void setSeizoen(Season season) {
+		this.matchDay.setSeason(season);
 	}
 
-	public Ploeg getThuis() {
-		return thuis;
+	public Team getHomeTeam() {
+		return home;
 	}
 
-	public void setThuis(Ploeg thuis) {
-		this.thuis = thuis;
+	public void setHomeTeam(Team home) {
+		this.home = home;
 	}
 
-	public Ploeg getUit() {
-		return uit;
+	public Team getAwayTeam() {
+		return away;
 	}
 
-	public void setUit(Ploeg uit) {
-		this.uit = uit;
+	public void setAwayTeam(Team away) {
+		this.away = away;
 	}
 
-	public Set<Doelpunt> getDoelpunten() {
-		return doelpunten;
+	public Set<Doelpunt> getGoals() {
+		return goals;
 	}
 
-	public void setDoelpunten(Set<Doelpunt> doelpunten) {
-		this.doelpunten = doelpunten;
+	public void setGoals(Set<Doelpunt> goals) {
+		this.goals = goals;
 	}
 	
-	public void addDoelpunt(Doelpunt doelpunt){
-		doelpunten.add(doelpunt);
+	public void addGoal(Doelpunt goal){
+		goals.add(goal);
 	}
 	
 	
