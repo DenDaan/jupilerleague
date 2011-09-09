@@ -36,7 +36,7 @@ public class Game implements Serializable {
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
 	@Column(name="Goals")
-	private Set<Doelpunt> goals = new HashSet<Doelpunt>();
+	private Set<Goal> goals = new HashSet<Goal>();
 
 	public Game(){}
 
@@ -80,15 +80,15 @@ public class Game implements Serializable {
 		this.away = away;
 	}
 
-	public Set<Doelpunt> getGoals() {
+	public Set<Goal> getGoals() {
 		return goals;
 	}
 
-	public void setGoals(Set<Doelpunt> goals) {
+	public void setGoals(Set<Goal> goals) {
 		this.goals = goals;
 	}
 	
-	public void addGoal(Doelpunt goal){
+	public void addGoal(Goal goal){
 		goals.add(goal);
 	}
 	
